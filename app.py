@@ -245,14 +245,45 @@ col3.metric("Filas con datos completos", int(df.notna().all(axis=1).sum()))
 # ═══════════════════════════════════════════════════════════════════════════════
 
 def columnas_categoricas(dataframe, max_col):
+    """
+    Detecta columnas útiles como filtros por cardinalidad baja,
+    sin importar si son texto o numéricas.
+    Excluye: IDs únicos por fila, constantes, fechas y texto libre.
+    """
+    PALABRAS_EXCLUIR = {"id", "fecha", "date", "código", "codigo",
+                        "radicado", "observacion", "observación",
+                        "descripcion", "descripción", "nombre"}
     resultado = []
+    n_filas = len(dataframe)
+ 
     for col in dataframe.columns:
-        if dataframe[col].dtype == object and 1 < dataframe[col].nunique() <= 50:
-            resultado.append(col)
+        nombre = col.lower().strip()
+ 
+        # Saltar columnas cuyo nombre sugiere ID, fecha o texto libre
+        if any(p in nombre for p in PALABRAS_EXCLUIR):
+            continue
+ 
+        n_unicos = dataframe[col].nunique(dropna=True)
+ 
+        # Saltar columnas constantes (1 valor) o únicas por fila (IDs)
+        if n_unicos <= 1 or n_unicos == n_filas:
+            continue
+ 
+        # Saltar columnas con demasiados valores únicos (texto libre)
+        if n_unicos > 50:
+            continue
+ 
+        # Saltar floats con alta variabilidad (valores continuos como precios)
+        if dataframe[col].dtype == "float64" and n_unicos > 20:
+            continue
+ 
+        resultado.append(col)
+ 
         if len(resultado) >= max_col:
             break
+ 
     return resultado
-
+ 
 filtros_activos = COLUMNAS_FILTRO if COLUMNAS_FILTRO else columnas_categoricas(df, MAX_FILTROS_AUTO)
 columnas_tabla  = COLUMNAS_TABLA  if COLUMNAS_TABLA  else df.columns.tolist()
 
