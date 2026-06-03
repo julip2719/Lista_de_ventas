@@ -218,45 +218,6 @@ except Exception as e:
     st.error(f" No se pudieron cargar los datos. Verifica que el Google Sheet esté publicado.\n\nError: `{e}`")
     st.stop()
 
-def columnas_categoricas(dataframe, max_col):
-    """
-    Detecta columnas útiles como filtros según cardinalidad,
-    sin importar si son texto o número.
-    Excluye: IDs (todos únicos), constantes (1 valor),
-             fechas, y columnas de texto libre (>50 valores únicos).
-    """
-    PALABRAS_EXCLUIR = {"id", "fecha", "date", "código", "codigo",
-                        "radicado", "observacion", "observación", "descripcion"}
-    resultado = []
-    n_filas = len(dataframe)
-
-    for col in dataframe.columns:
-        # Saltar si el nombre parece un ID o fecha
-        nombre = col.lower().strip()
-        if any(p in nombre for p in PALABRAS_EXCLUIR):
-            continue
-
-        n_unicos = dataframe[col].nunique(dropna=True)
-
-        # Saltar columnas constantes o únicas por fila (IDs)
-        if n_unicos <= 1 or n_unicos == n_filas:
-            continue
-
-        # Saltar columnas de texto libre (demasiados valores únicos)
-        if n_unicos > 50:
-            continue
-
-        # Saltar columnas float con alta variabilidad (valores continuos)
-        if dataframe[col].dtype == "float64" and n_unicos > 20:
-            continue
-
-        resultado.append(col)
-
-        if len(resultado) >= max_col:
-            break
-
-    return resultado
-
 # ═══════════════════════════════════════════════════════════════════════════════
 #  ENCABEZADO  (usa la clase .header-panel del CSS)
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -274,11 +235,10 @@ st.markdown(f"""
 #  MÉTRICAS
 # ═══════════════════════════════════════════════════════════════════════════════
 
-col1, col2, col3, col4 = st.columns(4)
+col1, col2, col3 = st.columns(3)
 col1.metric("Total de registros", f"{len(df):,}")
 col2.metric("Columnas", len(df.columns))
 col3.metric("Filas con datos completos", int(df.notna().all(axis=1).sum()))
-col4.metric("Año", len(df.columns))
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  FILTROS  (dentro de la tarjeta .selector-card)
@@ -365,7 +325,7 @@ if filtros_activos:
 
 csv_exportar = df_filtrado[columnas_mostrar].to_csv(index=False).encode("utf-8")
 st.download_button(
-    label="⬇️ Descargar resultados como CSV",
+    label=" Descargar resultados como CSV",
     data=csv_exportar,
     file_name="datos_filtrados.csv",
     mime="text/csv",
