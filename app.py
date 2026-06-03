@@ -218,6 +218,44 @@ except Exception as e:
     st.error(f" No se pudieron cargar los datos. Verifica que el Google Sheet esté publicado.\n\nError: `{e}`")
     st.stop()
 
+def columnas_categoricas(dataframe, max_col):
+    """
+    Detecta columnas útiles como filtros según cardinalidad,
+    sin importar si son texto o número.
+    Excluye: IDs (todos únicos), constantes (1 valor),
+             fechas, y columnas de texto libre (>50 valores únicos).
+    """
+    PALABRAS_EXCLUIR = {"id", "fecha", "date", "código", "codigo",
+                        "radicado", "observacion", "observación", "descripcion"}
+    resultado = []
+    n_filas = len(dataframe)
+
+    for col in dataframe.columns:
+        # Saltar si el nombre parece un ID o fecha
+        nombre = col.lower().strip()
+        if any(p in nombre for p in PALABRAS_EXCLUIR):
+            continue
+
+        n_unicos = dataframe[col].nunique(dropna=True)
+
+        # Saltar columnas constantes o únicas por fila (IDs)
+        if n_unicos <= 1 or n_unicos == n_filas:
+            continue
+
+        # Saltar columnas de texto libre (demasiados valores únicos)
+        if n_unicos > 50:
+            continue
+
+        # Saltar columnas float con alta variabilidad (valores continuos)
+        if dataframe[col].dtype == "float64" and n_unicos > 20:
+            continue
+
+        resultado.append(col)
+
+        if len(resultado) >= max_col:
+            break
+
+    return resultado
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  ENCABEZADO  (usa la clase .header-panel del CSS)
