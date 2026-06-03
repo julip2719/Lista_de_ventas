@@ -15,7 +15,7 @@ SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQH1h7L5laiWJIg1cgx
 
 # Columnas que quieres usar como filtros desplegables (deben existir en tu hoja)
 # Déjalas vacías [] para que la app las detecte automáticamente
-COLUMNAS_FILTRO = []
+COLUMNAS_FILTRO = ["SUBREGIÓN"]
 
 # Columnas que quieres mostrar en la tabla (vacío = mostrar todas)
 COLUMNAS_TABLA = []
