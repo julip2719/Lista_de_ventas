@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  CONFIGURACIÓN — edita solo esta sección
+#  CONFIGURACIÓN 
 # ═══════════════════════════════════════════════════════════════════════════════
 
 APP_TITULO       = "Mi App de Datos"
@@ -18,7 +18,7 @@ MAX_FILTROS_AUTO = 5
 CACHE_TTL        = 60
 
 # ═══════════════════════════════════════════════════════════════════════════════
-#  DISEÑO CSS  — no necesitas tocar esto salvo para cambiar colores
+#  DISEÑO CSS 
 # ═══════════════════════════════════════════════════════════════════════════════
 
 st.set_page_config(page_title=APP_TITULO, page_icon=APP_ICONO, layout="wide")
@@ -274,11 +274,11 @@ st.markdown(f"""
 #  MÉTRICAS
 # ═══════════════════════════════════════════════════════════════════════════════
 
-col1, col2, col3 = st.columns(3)
+col1, col2, col3, col4 = st.columns(4)
 col1.metric("Total de registros", f"{len(df):,}")
 col2.metric("Columnas", len(df.columns))
 col3.metric("Filas con datos completos", int(df.notna().all(axis=1).sum()))
-
+col4.metric("Año", len(df.columns))
 
 # ═══════════════════════════════════════════════════════════════════════════════
 #  FILTROS  (dentro de la tarjeta .selector-card)
