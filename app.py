@@ -15,13 +15,13 @@ SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQH1h7L5laiWJIg1cgx
 
 # Columnas que quieres usar como filtros desplegables (deben existir en tu hoja)
 # Déjalas vacías [] para que la app las detecte automáticamente
-COLUMNAS_FILTRO = ["SUBREGIÓN", "AÑO", "ESTADO"]
+COLUMNAS_FILTRO = ["SUBREGIÓN", "AÑO", "ESTADO", "COMPONENTE"]
 
 # Columnas que quieres mostrar en la tabla (vacío = mostrar todas)
 COLUMNAS_TABLA = []
 
 # Columna numérica para mostrar en las métricas (vacío = no mostrar métrica numérica)
-COLUMNA_METRICA_NUMERICA = "AÑO"
+COLUMNA_METRICA_NUMERICA = ""
 
 # Número máximo de columnas de filtro a generar automáticamente (si COLUMNAS_FILTRO está vacío)
 MAX_FILTROS_AUTO = 4
