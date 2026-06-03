@@ -12,7 +12,7 @@ APP_SUBTITULO    = "Consulta y filtra los registros de la base de datos."
 
 SHEET_URL        = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQH1h7L5laiWJIg1cgxc0QpVvUqikHmmW7HstXTZgc1uMVGFNXkK7R-pyLMZnBLzjBiBC1c5rADEVts/pub?output=csv"
 
-COLUMNAS_FILTRO  = []   # ej: ["MUNICIPIO", "COMPONENTE"] — vacío = auto-detectar
+COLUMNAS_FILTRO  = ["AÑO", "COMPONENTE", "MUNICIPIO"]   # ej: ["MUNICIPIO", "COMPONENTE"] — vacío = auto-detectar
 COLUMNAS_TABLA   = []   # vacío = mostrar todas
 MAX_FILTROS_AUTO = 4
 CACHE_TTL        = 60
