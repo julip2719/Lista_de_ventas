@@ -10,7 +10,7 @@ st.set_page_config(
 
 # ── URL DE GOOGLE SHEETS ─────────────────────────────────────────────────────
 # Reemplaza esta URL con la que copiaste en el Paso 1
-SHEET_URL = "https://docs.google.com/spreadsheets/d/TU_ID_AQUI/export?format=csv&gid=0"
+SHEET_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQH1h7L5laiWJIg1cgxc0QpVvUqikHmmW7HstXTZgc1uMVGFNXkK7R-pyLMZnBLzjBiBC1c5rADEVts/pub?output=csv"
 
 # ── CARGAR DATOS ──────────────────────────────────────────────────────────────
 @st.cache_data(ttl=60)  # Guarda en caché por 60 segundos
