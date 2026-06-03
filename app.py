@@ -25,135 +25,150 @@ st.set_page_config(page_title=APP_TITULO, page_icon=APP_ICONO, layout="wide")
 
 st.markdown("""
 <style>
-    /* ── Fondo general ─────────────────────────────────────────────────────── */
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap');
+ 
+    /* ── Fondo general: pizarra oscura con destello ámbar ──────────────────── */
     .stApp {
         background:
-            radial-gradient(circle at top left, rgba(0, 104, 55, 0.12), transparent 28%),
-            linear-gradient(180deg, #f4f8f4 0%, #eef4ef 100%);
+            radial-gradient(ellipse at top right, rgba(245, 158, 11, 0.07), transparent 45%),
+            radial-gradient(ellipse at bottom left, rgba(30, 58, 138, 0.10), transparent 40%),
+            linear-gradient(180deg, #0f1117 0%, #131720 100%);
+        font-family: 'DM Sans', sans-serif;
+        color: #e2e8f0;
     }
-
+ 
     /* ── Contenedor central ─────────────────────────────────────────────────── */
     .block-container {
         padding-top: 2rem;
         padding-bottom: 2rem;
         max-width: 1250px;
     }
-
-    /* ── Panel de encabezado verde ──────────────────────────────────────────── */
+ 
+    /* ── Panel de encabezado oscuro con borde ámbar izquierdo ──────────────── */
     .header-panel {
-        background: linear-gradient(135deg, #006837 0%, #0b8f4a 100%);
-        padding: 28px 32px;
-        border-radius: 22px;
-        color: white;
-        box-shadow: 0 18px 40px rgba(0, 104, 55, 0.18);
-        margin-bottom: 24px;
-    }
-    .header-kicker {
-        text-transform: uppercase;
-        letter-spacing: 0.18em;
-        font-size: 0.8rem;
-        font-weight: 700;
-        opacity: 0.85;
-        margin-bottom: 12px;
-    }
-    .header-title {
-        font-size: 2.2rem;
-        line-height: 1.2;
-        font-weight: 800;
-        margin-bottom: 10px;
-    }
-    .header-subtitle {
-        font-size: 1rem;
-        opacity: 0.95;
-        max-width: 780px;
-    }
-
-    /* ── Tarjeta de filtros ─────────────────────────────────────────────────── */
-    .selector-card {
-        background: rgba(255, 255, 255, 0.88);
-        border: 1px solid rgba(0, 104, 55, 0.12);
-        border-radius: 20px;
-        padding: 22px 22px 10px 22px;
-        box-shadow: 0 14px 34px rgba(24, 39, 75, 0.08);
-        margin: 10px 0 22px 0;
-        backdrop-filter: blur(6px);
-    }
-    .selector-title {
-        font-size: 1.1rem;
-        font-weight: 700;
-        color: #0d4728;
-        margin-bottom: 6px;
-    }
-    .selector-help {
-        font-size: 0.95rem;
-        color: #527060;
-        margin-bottom: 14px;
-    }
-
-    /* ── Selectbox nativos de Streamlit ─────────────────────────────────────── */
-    div[data-baseweb="select"] > div {
-        border-radius: 14px !important;
-        border: 1px solid rgba(0, 104, 55, 0.18) !important;
-        min-height: 54px !important;
-        box-shadow: none !important;
-    }
-    div[data-baseweb="select"] > div:hover {
-        border-color: #0b8f4a !important;
-    }
-
-    /* ── Tarjeta principal de contenido ─────────────────────────────────────── */
-    .equipo-hero {
-        background: linear-gradient(135deg, #ffffff 0%, #f7fbf8 100%);
-        border-radius: 24px;
-        padding: 26px 30px;
-        border: 1px solid rgba(0, 104, 55, 0.10);
-        box-shadow: 0 18px 38px rgba(20, 33, 61, 0.09);
+        background: #1a1f2e;
+        border-left: 4px solid #f59e0b;
+        padding: 28px 36px;
+        border-radius: 4px 16px 16px 4px;
+        color: #e2e8f0;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45), inset 0 1px 0 rgba(245,158,11,0.08);
         margin-bottom: 24px;
         position: relative;
         overflow: hidden;
     }
-    .equipo-hero::after {
+    .header-panel::before {
         content: "";
         position: absolute;
-        inset: auto -40px -40px auto;
-        width: 170px;
-        height: 170px;
+        top: -60px; right: -60px;
+        width: 220px; height: 220px;
         border-radius: 50%;
-        background: radial-gradient(circle, rgba(0, 104, 55, 0.14), rgba(0, 104, 55, 0));
+        background: radial-gradient(circle, rgba(245, 158, 11, 0.06), transparent 70%);
+    }
+    .header-kicker {
+        font-family: 'DM Mono', monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        font-size: 0.72rem;
+        font-weight: 500;
+        color: #f59e0b;
+        margin-bottom: 14px;
+    }
+    .header-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 2.4rem;
+        line-height: 1.15;
+        font-weight: 800;
+        color: #f1f5f9;
+        margin-bottom: 10px;
+    }
+    .header-subtitle {
+        font-size: 0.97rem;
+        color: #94a3b8;
+        max-width: 780px;
+        line-height: 1.6;
+    }
+ 
+    /* ── Tarjeta de filtros: panel oscuro con borde tenue ───────────────────── */
+    .selector-card {
+        background: #1a1f2e;
+        border: 1px solid rgba(245, 158, 11, 0.14);
+        border-radius: 12px;
+        padding: 20px 22px 8px 22px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+        margin: 10px 0 22px 0;
+    }
+    .selector-title {
+        font-family: 'Syne', sans-serif;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #f59e0b;
+        margin-bottom: 4px;
+        letter-spacing: 0.02em;
+    }
+    .selector-help {
+        font-size: 0.88rem;
+        color: #64748b;
+        margin-bottom: 14px;
+    }
+ 
+    /* ── Selectbox: bordes ámbar sobre fondo oscuro ─────────────────────────── */
+    div[data-baseweb="select"] > div {
+        background-color: #0f1117 !important;
+        border-radius: 8px !important;
+        border: 1px solid rgba(245, 158, 11, 0.25) !important;
+        min-height: 50px !important;
+        box-shadow: none !important;
+        color: #e2e8f0 !important;
+    }
+    div[data-baseweb="select"] > div:hover {
+        border-color: #f59e0b !important;
+    }
+ 
+    /* ── Tarjeta principal con línea superior ámbar ─────────────────────────── */
+    .equipo-hero {
+        background: #1a1f2e;
+        border-radius: 12px;
+        border-top: 3px solid #f59e0b;
+        padding: 24px 28px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+        margin-bottom: 20px;
     }
     .equipo-label {
-        font-size: 0.85rem;
+        font-family: 'DM Mono', monospace;
+        font-size: 0.72rem;
         text-transform: uppercase;
-        letter-spacing: 0.18em;
-        color: #5c7668;
-        font-weight: 700;
-        margin-bottom: 12px;
+        letter-spacing: 0.22em;
+        color: #f59e0b;
+        font-weight: 500;
+        margin-bottom: 10px;
     }
     .equipo-title {
+        font-family: 'Syne', sans-serif;
         font-size: 2rem;
         font-weight: 800;
-        color: #073b22;
-        margin-bottom: 8px;
+        color: #f1f5f9;
+        margin-bottom: 6px;
     }
     .equipo-caption {
-        font-size: 1rem;
-        color: #587061;
+        font-size: 0.92rem;
+        color: #64748b;
         max-width: 750px;
     }
-
-    /* ── Tarjetas de información ─────────────────────────────────────────────── */
+ 
+    /* ── Tarjetas secundarias ───────────────────────────────────────────────── */
     .card {
-        background: rgba(255, 255, 255, 0.94);
+        background: #1a1f2e;
         padding: 18px 20px;
-        border-radius: 16px;
-        border: 1px solid rgba(0, 104, 55, 0.09);
-        box-shadow: 0 10px 28px rgba(24, 39, 75, 0.07);
+        border-radius: 12px;
+        border: 1px solid rgba(245, 158, 11, 0.12);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.30);
         margin-bottom: 15px;
     }
     .card-title {
+        font-family: 'Syne', sans-serif;
         font-weight: 700;
         font-size: 1rem;
-        color: #006837;
+        color: #f59e0b;
         margin-bottom: 8px;
     }
     .bullet-list {
@@ -162,16 +177,25 @@ st.markdown("""
     }
     .bullet-list li {
         margin-bottom: 0.5rem;
-        line-height: 1.55;
-        color: #24352c;
+        line-height: 1.6;
+        color: #94a3b8;
     }
-
+ 
     /* ── Pestañas ────────────────────────────────────────────────────────────── */
-    .stTabs [data-baseweb="tab-list"] { gap: 8px; }
+    .stTabs [data-baseweb="tab-list"] { gap: 6px; }
     .stTabs [data-baseweb="tab"] {
-        border-radius: 999px;
-        padding: 10px 16px;
-        background: rgba(255, 255, 255, 0.7);
+        border-radius: 6px;
+        padding: 8px 18px;
+        background: #1a1f2e;
+        border: 1px solid rgba(245, 158, 11, 0.12);
+        color: #94a3b8;
+        font-family: 'DM Mono', monospace;
+        font-size: 0.85rem;
+    }
+    .stTabs [aria-selected="true"] {
+        background: rgba(245, 158, 11, 0.12) !important;
+        color: #f59e0b !important;
+        border-color: #f59e0b !important;
     }
 </style>
 """, unsafe_allow_html=True)
