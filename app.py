@@ -7,12 +7,12 @@ import pandas as pd
 
 APP_TITULO       = "Mi App de Datos"
 APP_ICONO        = "📊"
-APP_KICKER       = "Secretaría Seccional de Salud de Antioquia"   # texto pequeño sobre el título
+APP_KICKER       = "Seguimiento de ventas"   # texto pequeño sobre el título
 APP_SUBTITULO    = "Consulta y filtra los registros de la base de datos."
 
 SHEET_URL        = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTF_eyRoMXM1RowP9JBnnHqsrv3aEPYJof3cQ-gbwN1HRGlZKJji2Nlykl2dk9oTnq-J8n9HvhjRm5w/pub?output=csv"
 
-COLUMNAS_FILTRO  = ["AÑO", "COMPONENTE", "MUNICIPIO"]   # ej: ["MUNICIPIO", "COMPONENTE"] — vacío = auto-detectar
+COLUMNAS_FILTRO  = ["Año", "Sede", "Estado Pago"]   # ej: ["MUNICIPIO", "COMPONENTE"] — vacío = auto-detectar
 COLUMNAS_TABLA   = []   # vacío = mostrar todas
 MAX_FILTROS_AUTO = 4
 CACHE_TTL        = 60
@@ -191,7 +191,7 @@ def cargar_datos(url: str) -> pd.DataFrame:
 try:
     df = cargar_datos(SHEET_URL)
 except Exception as e:
-    st.error(f"❌ No se pudieron cargar los datos. Verifica que el Google Sheet esté publicado.\n\nError: `{e}`")
+    st.error(f" No se pudieron cargar los datos. Verifica que el Google Sheet esté publicado.\n\nError: `{e}`")
     st.stop()
 
 
@@ -236,7 +236,7 @@ columnas_tabla  = COLUMNAS_TABLA  if COLUMNAS_TABLA  else df.columns.tolist()
 
 st.markdown("""
 <div class="selector-card">
-    <div class="selector-title">🔍 Filtros</div>
+    <div class="selector-title"> Filtros</div>
     <div class="selector-help">Selecciona uno o varios criterios para filtrar la tabla.</div>
 </div>
 """, unsafe_allow_html=True)
@@ -248,7 +248,7 @@ if filtros_activos:
         opciones = ["Todos"] + sorted(df[col].dropna().unique().tolist())
         selecciones[col] = cols_filtros[i].selectbox(col.title(), opciones)
 
-busqueda = st.text_input("🔎 Búsqueda libre en cualquier columna", placeholder="Escribe para buscar…")
+busqueda = st.text_input(" Búsqueda libre en cualquier columna", placeholder="Escribe para buscar…")
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
