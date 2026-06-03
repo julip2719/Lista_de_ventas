@@ -21,7 +21,7 @@ COLUMNAS_FILTRO = ["SUBREGIÓN"]
 COLUMNAS_TABLA = []
 
 # Columna numérica para mostrar en las métricas (vacío = no mostrar métrica numérica)
-COLUMNA_METRICA_NUMERICA = ""
+COLUMNA_METRICA_NUMERICA = "AÑO"
 
 # Número máximo de columnas de filtro a generar automáticamente (si COLUMNAS_FILTRO está vacío)
 MAX_FILTROS_AUTO = 4
